@@ -27,9 +27,9 @@ require 'database.php';
                 </form>
             </div>
             <div class="filter-section">
-                <button class="btn btn-primary mb-3">Show All</button>
-                <button class="btn btn-primary mb-3">Show Pending</button>
-                <button class="btn btn-primary mb-3">Show Completed</button>
+                <button class="btn btn-primary mb-3" onclick="filterObjects('all')">Show All</button>
+                <button class="btn btn-primary mb-3" onclick="filterObjects('pending')">Show Pending</button>
+                <button class="btn btn-primary mb-3" onclick="filterObjects('completed')">Show Completed</button>
             </div>
 
             <div class="show-todo-section">
@@ -46,8 +46,10 @@ require 'database.php';
                     </center>
                     <?php } else {
                     while ($todo = $todos->fetch(PDO::FETCH_ASSOC)) {
-                        $checked = $todo['completed'] ? 'checked' : ''; ?>
-                        <div class="todo-item">
+                        $checked = $todo['completed'] ? 'checked' : ''; 
+                        $className = $checked == 'checked'? 'completed' : 'pending';
+                        ?>
+                        <div class="todo-item <?php echo $className; ?>" >
                             <span id=<?php echo $todo['id']; ?> class="remove-todo">x</span>
                             <input type="checkbox" class="check-box" data-id="<?php echo $todo['id']; ?>" <?php echo $checked; ?>>
                             <h2 class="<?php echo $checked; ?>"> <?php echo $todo['task'];  ?></h2>
@@ -60,6 +62,8 @@ require 'database.php';
     </section>
     <script src="scripts/jquery-3.6.1.min.js"> </script>
     <script>
+        filterObjects('all');
+
         $(document).ready(function(){
             $('.remove-todo').click(function(){
                 let id = $(this).attr('id');
@@ -83,8 +87,12 @@ require 'database.php';
                     (data) => {
                         h2 = $(this).next();
                         if(isCompleted){
+                            $(this).parent().addClass('completed');
+                            $(this).parent().removeClass('pending');
                             h2.addClass('checked');
                         } else {
+                            $(this).parent().addClass('pending');
+                            $(this).parent().removeClass('completed');
                             h2.removeClass('checked');
                         }
                     });
@@ -95,9 +103,38 @@ require 'database.php';
             if(childElements <=1 ){
                 setTimeout(function() {
                 document.getElementById("empty").style.display = "block";
-                }, 600);  
-                console.log("LAST ElEment");
+                }, 600);
             }
+        }
+        function filterObjects(status){
+            let classList,i;
+            if (status == 'all') status = "";
+            x = document.getElementsByClassName("todo-item");
+            for (i=0; i < x.length; i++){
+                removeClass(x[i], "show");
+                if(x[i].className.indexOf(status) > -1 ) addClass(x[i], "show")
+            }
+        }
+        function addClass(element, name){
+            let i,arr1,arr2;
+            arr1 = element.className.split(" ");
+            arr2 = name.split(" ");
+            for (i = 0; i<arr2.length; i++){
+                if (arr1.indexOf(arr2[i]) == -1 ){
+                    element.className += " "+arr2[i];
+                }
+            }
+        }
+        function removeClass(element, name){
+            let i,arr1,arr2;
+            arr1 = element.className.split(" ");
+            arr2 = name.split(" ");
+            for (i=0; i<arr2.length; i++){
+                while (arr1.indexOf(arr2[i]) > -1 ){
+                    arr1.splice(arr1.indexOf(arr2[i]), 1);
+                }
+            }
+            element.className = arr1.join(" ");
         }
     </script>    
 </body>

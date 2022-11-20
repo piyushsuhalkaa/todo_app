@@ -22,7 +22,6 @@ body {
     margin: 20px auto;
     border-radius: 10px;
   }
-  
   .add-section , .filter-section{
     width: 100%;
     background: #fff;
@@ -99,7 +98,12 @@ body {
     padding: 20px 10px;
     box-shadow: 0 4px 8px 0 #ccc, 0 6px 20px 0 #ccc;
     border-radius: 5px;
+    display: none;
   }
+  .show{
+    display: block;
+  }
+  
   
   .todo-item h2 {
     display: inline-block;
