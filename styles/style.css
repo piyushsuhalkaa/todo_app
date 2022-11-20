@@ -7,22 +7,43 @@ body {
     margin: 0px;
     box-sizing: border-box;
   }
+  .container{
+    padding: 50px;
+  }
+  header{
+    text-align: center;
+  }
   
   .main-section {
     background: transparent;
     max-width: 500px;
     width: 90%;
     height: 500px;
-    margin: 30px auto;
+    margin: 20px auto;
     border-radius: 10px;
   }
   
-  .add-section {
+  .add-section , .filter-section{
     width: 100%;
     background: #fff;
     margin: 0px auto;
     padding: 10px;
     border-radius: 5px;
+  }
+  .filter-section{
+    display: flex;
+    padding: 0;
+    margin: 0;
+  }
+  .filter-section button{
+    height: 40px;
+    margin: 0px auto;
+    border: none;
+    outline: none;
+    font-family: sans-serif;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
   }
   
   .add-section input {
@@ -64,20 +85,10 @@ body {
     height: 18px;
   }
   
-  #errorMes {
-    display: block;
-    background: #f2dede;
-    width: 95%;
-    margin: 0px auto;
-    color: rgb(139, 19, 19);
-    padding: 10px;
-    height: 35px;
-  }
-  
   .show-todo-section {
     width: 100%;
     background: #fff;
-    margin: 30px auto;
+    margin: 0px auto;
     padding: 10px;
     border-radius: 5px;
   }
@@ -108,7 +119,7 @@ body {
     font-family: sans-serif;
   }
   
-  .remove-to-do {
+  .remove-todo {
     display: block;
     float: right;
     width: 20px;
@@ -123,7 +134,7 @@ body {
     cursor: pointer;
   }
   
-  .remove-to-do:hover {
+  .remove-todo:hover {
     background: rgb(139, 97, 93);
     color: #fff;
   }
